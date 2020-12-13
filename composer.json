@@ -1,0 +1,23 @@
+{
+    "type": "project",
+    "license": "proprietary",
+    "require": {
+        "php": "^7.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "BagsKata\\App\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "BagsKata\\Tests\\": "tests/"
+        }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9"
+    },
+    "scripts": {
+        "test": "php ./vendor/phpunit/phpunit/phpunit ./tests --bootstrap ./vendor/autoload.php --no-configuration"
+    }
+}
