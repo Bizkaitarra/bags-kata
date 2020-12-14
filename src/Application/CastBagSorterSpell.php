@@ -30,7 +30,6 @@ class CastBagSorterSpell
             throw new \LogicException('Program should check that something can be placed before place it.');
         }
         return false;
-
     }
 
     /**

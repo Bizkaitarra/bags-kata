@@ -3,7 +3,6 @@
 
 namespace BagsKata\App\Domain\Items;
 
-
 use BagsKata\App\Domain\Item;
 use BagsKata\App\Domain\ItemCategory;
 

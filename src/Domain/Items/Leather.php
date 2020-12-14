@@ -3,7 +3,6 @@
 
 namespace BagsKata\App\Domain\Items;
 
-
 use BagsKata\App\Domain\Item;
 use BagsKata\App\Domain\ItemCategory;
 
@@ -16,6 +15,4 @@ class Leather extends Item
             new ItemCategory(ItemCategory::CLOTHES)
         );
     }
-
-
 }

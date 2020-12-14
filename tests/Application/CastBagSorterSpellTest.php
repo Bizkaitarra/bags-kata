@@ -21,13 +21,15 @@ use PHPUnit\Framework\TestCase;
 
 class CastBagSorterSpellTest extends TestCase
 {
-    public function testEmptyInventoryAndItemsShouldReturnTrue() {
+    public function testEmptyInventoryAndItemsShouldReturnTrue()
+    {
         $inventory = new Inventory(new Backpack(), []);
         $spell = new CastBagSorterSpell();
         $this->assertTrue($spell->__invoke($inventory));
     }
 
-    public function testNoExtraBagsInventoryShouldReturnTrueAndBagIsSorted() {
+    public function testNoExtraBagsInventoryShouldReturnTrueAndBagIsSorted()
+    {
         $backPack = new Backpack();
         $backPack->addItem(new Rose());
         $backPack->addItem(new Maze());
@@ -55,7 +57,8 @@ class CastBagSorterSpellTest extends TestCase
         ]);
     }
 
-    public function testWhenThereIsExtraBagsEachItemShouldGoToTheCorrectCategoryBag() {
+    public function testWhenThereIsExtraBagsEachItemShouldGoToTheCorrectCategoryBag()
+    {
         $backPack = new Backpack();
         $backPack->addItem(new Rose());
         $backPack->addItem(new Maze());
@@ -68,7 +71,8 @@ class CastBagSorterSpellTest extends TestCase
 
         $weaponCategory = new ItemCategory(ItemCategory::WEAPONS);
         $herbsCategory = new ItemCategory(ItemCategory::HERBS);
-        $inventory = new Inventory($backPack,
+        $inventory = new Inventory(
+            $backPack,
             [
                 new ExtraBag('Weapons bag', $weaponCategory),
                 new ExtraBag('Herbs bag', $herbsCategory),
@@ -95,7 +99,8 @@ class CastBagSorterSpellTest extends TestCase
         ]);
     }
 
-    public function testThereCanBeBagsWithoutCategory() {
+    public function testThereCanBeBagsWithoutCategory()
+    {
         $backPack = new Backpack();
         $backPack->addItem(new Rose());
         $backPack->addItem(new Maze());
@@ -106,7 +111,8 @@ class CastBagSorterSpellTest extends TestCase
         $backPack->addItem(new Iron());
         $backPack->addItem(new Axe());
 
-        $inventory = new Inventory($backPack,
+        $inventory = new Inventory(
+            $backPack,
             [
                 new ExtraBag('Miscellance bag', null),
             ]
@@ -118,15 +124,20 @@ class CastBagSorterSpellTest extends TestCase
     }
 
 
-    private function compareExcectedOrder(array $expectedItems, array $realItems) {
-        for ($i=0;$i<count($expectedItems);$i++) {
+    private function compareExcectedOrder(array $expectedItems, array $realItems)
+    {
+        for ($i=0; $i<count($expectedItems); $i++) {
             $this->assertItemIs($expectedItems[$i], $i, $realItems[$i]);
         }
     }
 
-    private function assertItemIs(Item $item, int $position, string $className) {
-        $this->assertInstanceOf($className, $item,
-            sprintf('%s excepted in position %s, %s resulted',
+    private function assertItemIs(Item $item, int $position, string $className)
+    {
+        $this->assertInstanceOf(
+            $className,
+            $item,
+            sprintf(
+                '%s excepted in position %s, %s resulted',
                 $className,
                 $position,
                 get_class($item)

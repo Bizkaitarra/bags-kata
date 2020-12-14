@@ -42,11 +42,10 @@ class Inventory
             }
         }
         throw new InventoryFullException();
-
-
     }
 
-    public function getAllItems():array {
+    public function getAllItems():array
+    {
         $items = $this->backpack->items();
         foreach ($this->extraBagList as $bag) {
             $items = array_merge($items, $bag->items());
@@ -55,7 +54,8 @@ class Inventory
     }
 
 
-    public function categoryBag(Item $item):?ExtraBag {
+    public function categoryBag(Item $item):?ExtraBag
+    {
         foreach ($this->extraBagList as $bag) {
             if ($bag instanceof ExtraBag && $bag->isFromCategory($item->category())) {
                 return $bag;
@@ -64,7 +64,8 @@ class Inventory
         return null;
     }
 
-    public function emptyBags() {
+    public function emptyBags()
+    {
         $this->backpack->empty();
         foreach ($this->extraBagList as $bag) {
             if ($bag instanceof ExtraBag) {
@@ -73,7 +74,8 @@ class Inventory
         }
     }
 
-    public function sortBags() {
+    public function sortBags()
+    {
         $this->backpack->sort();
         foreach ($this->extraBagList as $bag) {
             if ($bag instanceof ExtraBag) {
@@ -82,9 +84,8 @@ class Inventory
         }
     }
 
-    public function bag(int $index) {
+    public function bag(int $index)
+    {
         return $this->extraBagList[$index];
     }
-
-
 }

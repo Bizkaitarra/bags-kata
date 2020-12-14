@@ -14,7 +14,8 @@ abstract class Bag
     protected ?ItemCategory $category = null;
 
 
-    public function canBeAdded(Item $item) {
+    public function canBeAdded(Item $item)
+    {
         return !$this->isFull() &&
             ($this->hasCorrectCategory($item));
     }
@@ -24,7 +25,8 @@ abstract class Bag
      * @throws BagFullException
      * @throws NotValidBagCategoryException
      */
-    public function addItem(Item $item) {
+    public function addItem(Item $item)
+    {
         if (!$this->canBeAdded($item)) {
             if ($this->isFull()) {
                 throw new BagFullException($this->name, $this->capacity, $this->numerOfItemsInBag());
@@ -59,11 +61,13 @@ abstract class Bag
         return $this->items;
     }
 
-    public function empty() {
+    public function empty()
+    {
         $this->items = [];
     }
 
-    public function sort() {
+    public function sort()
+    {
         usort($this->items, fn ($a, $b) => $a->name() <=> $b->name());
     }
 
@@ -75,6 +79,4 @@ abstract class Bag
         }
         return $this->category->name() === $itemCategory->name();
     }
-
-
 }

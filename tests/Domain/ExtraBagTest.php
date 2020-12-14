@@ -3,7 +3,6 @@
 
 namespace Domain;
 
-
 use BagsKata\App\Domain\Exceptions\BagFullException;
 use BagsKata\App\Domain\ExtraBag;
 use BagsKata\App\Domain\ItemCategory;
@@ -12,17 +11,20 @@ use PHPUnit\Framework\TestCase;
 
 class ExtraBagTest extends TestCase
 {
-    public function testCanCreateBagWithoutCategory() {
+    public function testCanCreateBagWithoutCategory()
+    {
         $extraBag = new ExtraBag('Test');
         $this->assertInstanceOf(ExtraBag::class, $extraBag);
     }
 
-    public function testCanCreateBagWithCategory() {
+    public function testCanCreateBagWithCategory()
+    {
         $extraBag = new ExtraBag('Test', new ItemCategory(ItemCategory::WEAPONS));
         $this->assertInstanceOf(ExtraBag::class, $extraBag);
     }
 
-    public function testCantHaveMoreThanFourItems() {
+    public function testCantHaveMoreThanFourItems()
+    {
         $extraBag = new ExtraBag('Test');
         $extraBag->addItem(new Maze());
         $extraBag->addItem(new Maze());
@@ -32,7 +34,8 @@ class ExtraBagTest extends TestCase
         $extraBag->addItem(new Maze());
     }
 
-    public function testCanHaveFourItems() {
+    public function testCanHaveFourItems()
+    {
         $extraBag = new ExtraBag('Test');
         $extraBag->addItem(new Maze());
         $extraBag->addItem(new Maze());
@@ -40,5 +43,4 @@ class ExtraBagTest extends TestCase
         $extraBag->addItem(new Maze());
         $this->assertTrue(true);
     }
-
 }

@@ -7,10 +7,10 @@ use BagsKata\App\Domain\Exceptions\NotValidCategoryException;
 
 class ItemCategory
 {
-    public CONST CLOTHES = 'CLOTHES';
-    public CONST METALS = 'METALS';
-    public CONST WEAPONS = 'WEAPONS';
-    public CONST HERBS = 'HERBS';
+    public const CLOTHES = 'CLOTHES';
+    public const METALS = 'METALS';
+    public const WEAPONS = 'WEAPONS';
+    public const HERBS = 'HERBS';
 
     private string $name;
 
@@ -41,13 +41,10 @@ class ItemCategory
         }
     }
 
-    private function getValidCategoryNames(): array {
+    private function getValidCategoryNames(): array
+    {
         return [
             self::CLOTHES, self::METALS, self::WEAPONS, self::HERBS
         ];
     }
-
-
-
-
 }
