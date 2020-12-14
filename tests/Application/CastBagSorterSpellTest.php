@@ -3,12 +3,13 @@
 
 namespace BagsKata\Tests\Application;
 
+use BagsKata\App\Domain\ExtraBag;
 use BagsKata\App\Domain\Inventory;
 use BagsKata\App\Domain\Backpack;
 use BagsKata\App\Application\CastBagSorterSpell;
 use BagsKata\App\Domain\Item;
+use BagsKata\App\Domain\ItemCategory;
 use BagsKata\App\Domain\Items\Axe;
-use BagsKata\App\Domain\Items\Gold;
 use BagsKata\App\Domain\Items\Iron;
 use BagsKata\App\Domain\Items\Maze;
 use BagsKata\App\Domain\Items\Rose;
@@ -52,6 +53,68 @@ class CastBagSorterSpellTest extends TestCase
            Wool::class
 
         ]);
+    }
+
+    public function testWhenThereIsExtraBagsEachItemShouldGoToTheCorrectCategoryBag() {
+        $backPack = new Backpack();
+        $backPack->addItem(new Rose());
+        $backPack->addItem(new Maze());
+        $backPack->addItem(new Silver());
+        $backPack->addItem(new Sword());
+        $backPack->addItem(new Wool());
+        $backPack->addItem(new Silk());
+        $backPack->addItem(new Iron());
+        $backPack->addItem(new Axe());
+
+        $weaponCategory = new ItemCategory(ItemCategory::WEAPONS);
+        $herbsCategory = new ItemCategory(ItemCategory::HERBS);
+        $inventory = new Inventory($backPack,
+            [
+                new ExtraBag('Weapons bag', $weaponCategory),
+                new ExtraBag('Herbs bag', $herbsCategory),
+            ]
+        );
+        $spell = new CastBagSorterSpell();
+        $this->assertTrue($spell->__invoke($inventory));
+        $this->compareExcectedOrder($backPack->items(), [
+           Iron::class,
+           Silk::class,
+           Silver::class,
+           Wool::class
+
+        ]);
+
+        $this->compareExcectedOrder($inventory->bag(0)->items(), [
+           Axe::class,
+           Maze::class,
+           Sword::class,
+        ]);
+
+        $this->compareExcectedOrder($inventory->bag(1)->items(), [
+            Rose::class
+        ]);
+    }
+
+    public function testThereCanBeBagsWithoutCategory() {
+        $backPack = new Backpack();
+        $backPack->addItem(new Rose());
+        $backPack->addItem(new Maze());
+        $backPack->addItem(new Silver());
+        $backPack->addItem(new Sword());
+        $backPack->addItem(new Wool());
+        $backPack->addItem(new Silk());
+        $backPack->addItem(new Iron());
+        $backPack->addItem(new Axe());
+
+        $inventory = new Inventory($backPack,
+            [
+                new ExtraBag('Miscellance bag', null),
+            ]
+        );
+        $spell = new CastBagSorterSpell();
+        $this->assertTrue($spell->__invoke($inventory));
+        $this->assertCount(8, $backPack->items());
+        $this->assertCount(0, $inventory->bag(0)->items());
     }
 
 

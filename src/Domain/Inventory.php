@@ -57,7 +57,7 @@ class Inventory
 
     public function categoryBag(Item $item):?ExtraBag {
         foreach ($this->extraBagList as $bag) {
-            if ($bag instanceof ExtraBag && $bag->hasCorrectCategory($item)) {
+            if ($bag instanceof ExtraBag && $bag->isFromCategory($item->category())) {
                 return $bag;
             }
         }
@@ -80,6 +80,10 @@ class Inventory
                 $bag->sort();
             }
         }
+    }
+
+    public function bag(int $index) {
+        return $this->extraBagList[$index];
     }
 
 

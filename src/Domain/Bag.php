@@ -68,4 +68,13 @@ abstract class Bag
     }
 
 
+    public function isFromCategory(ItemCategory $itemCategory): bool
+    {
+        if ($this->category === null) {
+            return false;
+        }
+        return $this->category->name() === $itemCategory->name();
+    }
+
+
 }
