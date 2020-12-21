@@ -50,7 +50,7 @@ abstract class Bag
 
     public function hasCorrectCategory(Item $item): bool
     {
-        return $this->category === null || $this->category->name() === $item->category()->name();
+        return $this->category === null || $this->category->equals($item->category());
     }
 
     /**
@@ -77,6 +77,6 @@ abstract class Bag
         if ($this->category === null) {
             return false;
         }
-        return $this->category->name() === $itemCategory->name();
+        return $this->category->equals($itemCategory);
     }
 }

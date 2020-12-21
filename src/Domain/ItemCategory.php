@@ -30,6 +30,11 @@ class ItemCategory
         return $this->name;
     }
 
+    public function equals(ItemCategory $itemCategory)
+    {
+        return $this->name === $itemCategory->name;
+    }
+
     /**
      * @param string $name
      * @throws NotValidCategoryException
