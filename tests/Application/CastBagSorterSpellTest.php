@@ -71,11 +71,16 @@ class CastBagSorterSpellTest extends TestCase
 
         $weaponCategory = new ItemCategory(ItemCategory::WEAPONS);
         $herbsCategory = new ItemCategory(ItemCategory::HERBS);
+
+
+        $weaponsBag = new ExtraBag('Weapons bag', $weaponCategory);
+        $herbsBag = new ExtraBag('Herbs bag', $herbsCategory);
+
         $inventory = new Inventory(
             $backPack,
             [
-                new ExtraBag('Weapons bag', $weaponCategory),
-                new ExtraBag('Herbs bag', $herbsCategory),
+                $weaponsBag,
+                $herbsBag,
             ]
         );
         $spell = new CastBagSorterSpell();
@@ -88,13 +93,13 @@ class CastBagSorterSpellTest extends TestCase
 
         ]);
 
-        $this->compareExcectedOrder($inventory->bag(0)->items(), [
+        $this->compareExcectedOrder($weaponsBag->items(), [
            Axe::class,
            Maze::class,
            Sword::class,
         ]);
 
-        $this->compareExcectedOrder($inventory->bag(1)->items(), [
+        $this->compareExcectedOrder($herbsBag->items(), [
             Rose::class
         ]);
     }
@@ -111,16 +116,17 @@ class CastBagSorterSpellTest extends TestCase
         $backPack->addItem(new Iron());
         $backPack->addItem(new Axe());
 
+        $miscellanceBag = new ExtraBag('Miscellance bag', null);
         $inventory = new Inventory(
             $backPack,
             [
-                new ExtraBag('Miscellance bag', null),
+                $miscellanceBag,
             ]
         );
         $spell = new CastBagSorterSpell();
         $this->assertTrue($spell->__invoke($inventory));
         $this->assertCount(8, $backPack->items());
-        $this->assertCount(0, $inventory->bag(0)->items());
+        $this->assertCount(0, $miscellanceBag->items());
     }
 
 

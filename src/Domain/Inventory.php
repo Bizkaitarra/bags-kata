@@ -84,8 +84,4 @@ class Inventory
         }
     }
 
-    public function bag(int $index)
-    {
-        return $this->extraBagList[$index];
-    }
 }
